@@ -4,18 +4,23 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/jonathanbs9/memoriz3r/model"
 )
 
 type Handler struct {
+	UserService model.UserService
 }
 
 type Config struct {
-	R *gin.Engine
-	//US *model.UserService
+	R           *gin.Engine
+	UserService model.UserService
 }
 
 func NewHandler(c *Config) {
-	h := &Handler{}
+	h := &Handler{
+		UserService: c.UserService,
+	}
+
 	//os.Getenv("ACCOUNT_API_URL"))
 	g := c.R.Group("api/account/")
 
@@ -33,13 +38,6 @@ func NewHandler(c *Config) {
 			"message": "Everything will be ok",
 		})
 	})*/
-}
-
-// Me
-func (h *Handler) Me(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"message": "This is ME",
-	})
 }
 
 // Signup
